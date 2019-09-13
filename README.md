@@ -1,2 +1,2 @@
 # Software-Engineering
-Nikkolas Diehl, Suved Shankar, Jordan Lamb, HuiLin Chen
+Nikkolas Diehl, Suved Shankar, Jordan Lamb, Marchelini Tansir
