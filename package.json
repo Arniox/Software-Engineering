@@ -1,16 +1,18 @@
 {
-  "name": "software-engineering",
+  "name": "plant-a-tree",
   "version": "0.0.1",
   "description": "Software Engineering Assignment 1B",
+  "main": "app/app.js",
   "scripts": {
-    "start": "node_modules/.bin/nodemon app/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "node_modules/.bin/nodemon app/app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Arniox/Software-Engineering.git"
   },
-  "author": "",
+  "author": "Suved Shankar; Nikkolas Diehl; Marchelini Tansir; Jordan Lamb",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Arniox/Software-Engineering/issues"
