@@ -4,9 +4,9 @@
   "description": "Software Engineering Assignment 1B",
   "main": "app/app.js",
   "scripts": {
-    "start": "node app/app.js",
+    "start": "node -r dotenv/config app/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "nodemon": "node_modules/.bin/nodemon app/app.js"
+    "nodemon": "node_modules/.bin/nodemon -r dotenv/config --ignore node_modules/"
   },
   "repository": {
     "type": "git",
