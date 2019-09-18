@@ -1,0 +1,30 @@
+<%- include partials/head.partial.ejs %>
+
+<body class="text-center">
+    <%- include partials/header.partial.ejs %>
+
+    <div class="container">
+        <div class="col-md">
+            <div class ="row">
+                <form class="form-signin" id="login_form" method="POST" action="/login">
+                    <h1 class="h3 mb-3 font-weight-normal">Sign in!</h1>
+        
+                    <label for="emailInput" class="sr-only">Email</label>
+                    <input id="emailInput" type="text" name="loginEmail" class="form-control" placeholder="Email">
+        
+                    <label for="passwordInput" class="sr-only">Password</label>
+                    <input id="passwordInput" type="password" name="loginPass" class="form-control mt-1" placeholder="Password">
+        
+                    <div class="button-box col-lg-12">
+                        <button class="btn btn-primary" type="submit">Sign in</button>
+        
+                        <a class="btn btn-primary" href="/register">Register</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <%- include partials/footer.partial.ejs %>
+</body>
+<%- include partials/scripts.partial.ejs %>

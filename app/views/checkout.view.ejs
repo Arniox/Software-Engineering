@@ -1,0 +1,198 @@
+<%- include partials/head.partial.ejs %>
+<body>
+    <%- include partials/header.partial.ejs %>
+    <main class="mt-5">
+        <div class="container">
+            <h2>Checkout Form</h2>
+            <br>
+            <div class="row">
+                <!--Payment tab-->
+                <div class="col-md-4 order-md-2 mb-4 position-sticky">
+                    <!--Card title-->
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Your cart</span>
+                        <span class="badge badge-secondary badge-pill" id="cartCountOutput">0</span>
+                    </h3>
+                    <!--Items to be added-->
+                    <ul class="list-group mb-3" id="cartItemsOutput">
+                        <!--Example 1-->
+                        <li class="list-group-item d-flex justify-content-between 1h-condensed">
+                            <!--Example item-->
+                            <div>
+                                <h6 class="my-0">Example product 1</h6>
+                                <small class="text-muted">Brief desctiption example</small>
+                            </div>
+                            <span class="text-muted">$0.0</span>
+                        </li>
+                        <!--Example 2-->
+                        <li class="list-group-item d-flex justify-content-between 1h-condensed">
+                            <!--Example item-->
+                            <div>
+                                <h6 class="my-0">Example product 2</h6>
+                                <small class="text-muted">Brief desctiption example</small>
+                            </div>
+                            <span class="text-muted">$0.0</span>
+                        </li>
+                        <!--Example 3-->
+                        <li class="list-group-item d-flex justify-content-between 1h-condensed">
+                            <!--Example item-->
+                            <div>
+                                <h6 class="my-0">Example product 3</h6>
+                                <small class="text-muted">Brief desctiption example</small>
+                            </div>
+                            <span class="text-muted">$0.0</span>
+                        </li>
+                        <!--Example promo code-->
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <!--Example promo code item-->
+                            <div class="text-success">
+                                <h6 class="my-0">Example promo code</h6>
+                                <small>EXAMPLE CODE</small>
+                            </div>
+                            <span class="text-success">-$5</span>
+                        </li>
+                        <!--Example total price-->
+                        <li class="list-group-item d-flex justify-content-between">
+                            <!--Example total price-->
+                            <span>Total (NZD)</span>
+                            <strong>$0.0</strong>
+                        </li>
+                    </ul>
+                    <!--Redeem new promo code-->
+                    <form class="card p-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="promoCodeInput" placeholder="Promo code">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary">Redeem</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--Main form-->
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">Billing Adress</h4>
+                    <form class="needsValidating" novalidate>
+                        <!--Naming-->
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="firstNameInput">First Name</label>
+                                <input type="text" class="form-control" id="firstNameInput">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="lastNameInput">Last Name</label>
+                                <input type="text" class="form-control" id="lastNameInput">
+                            </div>
+                        </div>
+                        <!--User name-->
+                        <div class="form-group">
+                            <label for="userNameInput">User Name</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">@</div>
+                                </div>
+                                <input type="text" class="form-control" id="userNameInput">
+                            </div>
+                        </div>
+                        <!--Email-->
+                        <div class="form-group">
+                            <label for="emailInput">Email
+                                <span class="text-muted">(Optional)</span>
+                            </label>
+                            <input type="text" class="form-control" id="emailInput" placeholder="you@example.com">
+                        </div>
+                        <!--Address-->
+                        <div class="form-group">
+                            <label for="addressInput">Address</label>
+                            <input type="text" class="form-control" id="addressInput" placeholder="32 Place St">
+                        </div>
+                        <!--Address 2-->
+                        <div class="form-group">
+                            <label for="addressTwoInput">Address 2
+                                <span class="text-muted">(Optional)</span>
+                            </label>
+                            <input type="text" class="form-control" id="addressTwoInput" placeholder="Appartment or suite">
+                        </div>
+                        <!--Country, State, Zip-->
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="countryInput">Country</label>
+                                <select class="form-control custom-select" id="countryInput">
+                                    <%- include partials/countrySelection.partial.ejs %>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="stateInput">State</label>
+                                <input type="text" class="form-control" id="stateInput">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="zipInput">Zip</label>
+                                <input type="text" class="form-control" id="zipInput">
+                            </div>
+                        </div>
+                        <!--CheckBoxes buttons-->
+                        <hr class="mb-4">
+                        <!--Shipping address is the same as billing address radio button-->
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="sameaddressInput">
+                            <label class="custom-control-label" for="sameaddressInput">Shipping address is the same as my billing address</label>
+                        </div>
+                        <!--Save this information for next time-->
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="saveinfoInput">
+                            <label class="custom-control-label" for="saveinfoInput">Save this information for next time</label>
+                        </div>
+                        <!--Payment-->
+                        <hr class="mb-4">
+                        <h4 class="mb-3">Payment</h4>
+                        <div class="d-block my-3">
+                            <!--credit card-->
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="paymentMethod" id="creditCardInput" checked required>
+                                <label class="custom-control-label" for="creditCardInput">Credit card</label>
+                            </div>
+                            <!--debit card-->
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="paymentMethod" id="eftposInput" required>
+                                <label class="custom-control-label" for="eftposInput">Eftpos</label>
+                            </div>
+                            <!--paypal-->
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="paymentMethod" id="paypalInput" required>
+                                <label class="custom-control-label" for="paypalInput">Paypal</label>
+                            </div>
+                        </div>
+                        <!--Card info 1-->
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="nameOnCardInput">Name on card</label>
+                                <input type="text" class="form-control" id="nameOnCardInput">
+                                <small class="text-muted">Full name as displayed on card</small>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="lastNameInput">Credit card number</label>
+                                <input type="text" class="form-control" id="lastNameInput">
+                                <small class="text-muted">Number as displayed on card</small>
+                            </div>
+                        </div>
+                        <!--Card info 2-->
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="expirationInput">Expiration</label>
+                                <input type="text" class="form-control" id="expirationInput" pattern="\b([\d]{2}[/]{1}[\d]{2})$"> <!--dd/dd exactly-->
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="cvvInput">CVV</label>
+                                <input type="text" class="form-control" id="cvvInput">
+                            </div>
+                        </div>
+
+                        <hr class="mb-4">
+                        <button class="btn btn-primary btn-lg btn-block" type="submut">Continue to checkout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include partials/footer.partial.ejs %>
+</body>
+<%- include partials/scripts.partial.ejs %>
