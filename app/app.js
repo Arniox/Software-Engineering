@@ -9,7 +9,7 @@ const port = process.env.PORT;
 
 app.set("views", "app/views");
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.use(index);
 app.use("/checkout", checkout);
 app.use("/auth", auth);
