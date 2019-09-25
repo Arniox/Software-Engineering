@@ -1,28 +1,23 @@
 <%- include partials/head.partial.ejs %>
-<link rel="stylesheet" href="css/login.css">
-<body class="text-center">
+<!-- <link rel="stylesheet" href="/css/login.css"> -->
+<body class="h-100">
     <%- include partials/header.partial.ejs %>
-
-    <main class="container">
-        <div class ="row">
-            <div class="col-md-4">
-                <form class="form-signin" id="login_form" method="POST" action="/login">
-                <h1 class="h3 mb-3 font-weight-normal">Sign in!</h1>
     
-                <label for="emailInput" class="sr-only">Email</label>
-                <input id="emailInput" type="text" name="loginEmail" class="form-control" placeholder="Email" required autofocus>
-    
-                <label for="passwordInput" class="sr-only">Password</label>
-                <input id="passwordInput" type="password" name="loginPass" class="form-control mt-1" placeholder="Password">
-    
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
+    <main class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <form method="POST" action="/auth/login" class="col-4">
+                <h1>Log In</h1>
+                <div class="form-group">
+                    <label for="inputEmail">Email address</label>
+                    <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </div>
-        </div> 
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Log in</button>
+            </form>
+        </div>
     </main>
 
     <%- include partials/footer.partial.ejs %>
