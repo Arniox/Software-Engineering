@@ -1,6 +1,12 @@
+const tree = require("../models/tree.model");
 
-function trees(request, response) {
-    response.render("trees.view.ejs");
+function index(request, response) {
+    const trees = tree.all();
+    response.render("trees.view.ejs", trees);
 }
 
-module.exports = { trees };
+function add() {
+
+}
+
+module.exports = { index, add };
