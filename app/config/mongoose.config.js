@@ -4,12 +4,10 @@ mongoose.connect(process.env.DB_URL, {
     useUnifiedTopology: true,
     useCreateIndex: true,
     dbName: process.env.DB_NAME
-}, (error) => {
-    if (error) {
-        throw error;
-    }  else {
-        console.log("Database connection successful");
-    }
+}).then(() => {
+    console.log("Database connected");
+}).catch((error) => {
+    console.log(error);
 });
 
 module.exports = mongoose;
