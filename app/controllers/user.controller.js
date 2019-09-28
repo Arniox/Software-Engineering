@@ -1,30 +1,61 @@
 const User = require("../models/user.model");
+const passport = require("../config/passport.config");
 
-function showLoginPage(request, response) {
-    response.render("login.view.ejs");
-}
+const controller = {
+    showLoginPage: (req, res) => {
+        return res.render("login.view.ejs");
+    },
 
-function showRegisterPage(request, response) {
-    response.render("register.view.ejs");
-}
+    showRegisterPage: (req, res) => {
+        return res.render("register.view.ejs");
+    },
 
-function createUser(request, response) {
-    const user = new User({
-        firstName: request.body.firstName,
-        lastName: request.body.lastName,
-        email: request.body.email,
-        password: request.body.password
-    });
-
-    user.save()
-        .then(() => {
-            console.log("User registration successfull");
-            response.redirect("/user/login");
-        })
-        .catch((error) => {
-            console.log(error);
-            response.end();
+    createUser: (req, res, next) => {
+        const user = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password
         });
-}
+    
+        user.save()
+            .then(() => {
+                console.log("User registration successfull.");
+                return res.redirect("/user/login");
+            })
+            .catch((error) => {
+                next(error);
+                return res.end();
+            });
+    },
 
-module.exports = { showLoginPage, showRegisterPage, createUser };
+    login: (req, res, next) => {
+        const authenticate = passport.authenticate("local", (error, user) => {
+            if (error) { 
+                return next(error);
+            } else if (!user) { 
+                return res.redirect("/user/login"); 
+            } else req.logIn(user, (error) => {
+                if (error) {
+                    return next(error);
+                } else {
+                    console.log(`${user.email} has logged in.`);
+                    return res.redirect("/");
+                }
+            });
+        });
+
+        authenticate(req, res, next);
+    },
+
+    logout: (req, res) => {
+        const user = req.user;
+        if (user) {
+            req.logout();
+            console.log(`${user.email} has logged out.`);
+        }
+        return res.redirect("/");
+    }
+};
+
+module.exports = controller;
