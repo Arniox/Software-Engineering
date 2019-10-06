@@ -28,6 +28,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Custom middleware
+app.use((req, res, next) => {
+    res.locals.user = req.user;
+    res.locals.htmlTitle = "htmlTitle not passed!";
+    next();
+});
+
 // Connect routes
 app.use(index);
 app.use("/checkout", checkout);
