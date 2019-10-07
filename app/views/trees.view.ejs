@@ -2,62 +2,172 @@
 <body>
     <%- include partials/header.partial.ejs %>
     <main class="mt-5">
-        <div class="container">
-            <h2>Trees:</h2>
+        <!--Payment tab-->
+        <div class="col-md-3 position-fixed">
+            <!--Card title-->
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Your cart</span>
+                <span class="badge badge-secondary badge-pill" id="cartCountOutput">0</span>
+            </h3>
             <br>
-
-            <%if (locals.trees) {%>
-                <% var count = 0; %>
-                <% var rowCounter = 0; %>
-                <!--Container for whole tree block-->
-                <div class="container" id="treeBlock">
-                <%trees.forEach(tree => {%>
-                    <%if (count % 3 == 0) {%>
-                        <div class="row" style="margin-top:20px">
-                    <%}%>
-                    <% rowCounter++; %>
-                    <!--Tree column-->
-                    <div class="col-md-4">
-                        <!--Tree card-->
-                        <div class="card" style="width: 18rem;">
-                            <!--Tree image-->
-                            <img src=<%=tree.image%> class="card-img-top" alt="empty-default">
-                            <!--Tree card body-->
-                            <div class="card-body">
-                                <!--Tree title-->
-                                <h5 class="card-title"><%=tree.name%></h5>
-                                <!--Tree description and data-->
-                                <p class="card-text">
-                                    <small class="text-muted"><%=tree.description%></small>
-                                    <!--Tree price-->
-                                    <div class="text-success">
-                                        Price: $ <%=tree.price%>
-                                    </div>
-                                    <!--Tree extra listed data-->
-                                    <ul class="list-group">
-                                        <li class="list-group-item">Tree maxHeight: <%=tree.maxHeight%></li>
-                                        <li class="list-group-item">Tree averageHeight: <%=tree.averageHeight%></li>
-                                    </ul>
-                                </p>
-                                <!--Tree add to cart button-->
-                                <form>
-                                    <button type="submit" class="btn btn-primary" id="cartItemInput">Add to Cart</button>
-                                </form>
-                            </div>
-                        </div>
+            <!--Items to be added-->
+            <ul class="list-group mb-3" id="cartItemsOutput">
+                <!--Items-->
+                
+                
+            </ul>
+            <!--Total Cost-->
+            <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <!--Example total price-->
+                        <span>Total (NZD)</span>
+                        <strong id="totalPriceOutput">$0.0</strong>
+                    </li>
+            </ul>
+            <!--Redeem new promo code-->
+            <form class="card p-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="promoCodeInput" placeholder="Promo code">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-secondary">Redeem</button>
                     </div>
-                    <%if (rowCounter >= 3) {%>
-                        <% rowCounter = 0; %>
-                        </div>
-                    <%}%>
-
-                    <% count++ %>
-                <%});%>
                 </div>
-            <%}%>
-            
+            </form>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <!--Trees-->
+                <div class="col-md-8 order-md-1">
+                    <div class="container">
+                        <h2>Trees:</h2>
+                        <br>
+                        <%if (locals.trees) {%>
+                            <% var count = 0; %>
+                            <% var rowCounter = 0; %>
+                            <!--Container for whole tree block-->
+                            <div class="container" id="treeBlock">
+                            <%trees.forEach(tree => {%>
+                                <%if (count % 3 == 0) {%>
+                                    <div class="row" style="margin-top:20px">
+                                <%}%>
+                                <% rowCounter++; %>
+                                <!--Tree column-->
+                                <div class="col-md-4">
+                                    <!--Tree card-->
+                                    <div class="card" style="width: 18rem;">
+                                        <!--Tree image-->
+                                        <img src="<%=tree.image%>" class="card-img-top" alt="empty-default">
+                                        <!--Tree card body-->
+                                        <div class="card-body">
+                                            <!--Tree title-->
+                                            <h5 class="card-title"><%=tree.name%></h5>
+                                            <!--Tree description and data-->
+                                            <p class="card-text">
+                                                <small class="text-muted"><%=tree.description%></small>
+                                                <!--Tree price-->
+                                                <div class="text-success">
+                                                    Price: $ <%=tree.price.toLocaleString()%>
+                                                </div>
+                                                <!--Tree extra listed data-->
+                                                <ul class="list-group">
+                                                    <li class="list-group-item">Tree maxHeight: <%=tree.maxHeight%></li>
+                                                    <li class="list-group-item">Tree averageHeight: <%=tree.averageHeight%></li>
+                                                </ul>
+                                            </p>
+                                            <!--Tree add to cart button-->
+                                            <form>
+                                                <button type="button" onclick = "add('<%=tree.id%>')" class="btn btn-primary" id="cartItemInput">Add to Cart</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%if (rowCounter >= 3) {%>
+                                    <% rowCounter = 0; %>
+                                    </div>
+                                <%}%>
+
+                                <% count++ %>
+                            <%});%>
+                            </div>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
+    <script>
+        function add(treeId){
+            console.log(treeId);
+
+            $.ajax({
+                type: "POST",
+                url: "/trees/addToCart",
+                data: { id: treeId },
+                dataType: "json",
+                success: (data, status) => {
+                    console.log(status);
+                    console.log(data);
+
+                    //Add to cart html object
+                    html_CartCounter(data);
+                }
+            })
+        }
+
+        function html_CartCounter(inputDat){
+            let cartCounter = document.getElementById("cartCountOutput");
+            cartCounter.innerHTML = inputDat.cart.length;
+
+            //For each tree item, add to checkout cart
+            var totalPrice = 0;
+            //Empty html sided cart first
+            let cartItself = document.getElementById("cartItemsOutput");
+            $(cartItself).empty();
+
+            inputDat.cart.forEach(item => {
+                html_CartItems(item, cartItself);
+                totalPrice += item.price;
+            });
+
+            let totalPriceStrong = document.getElementById("totalPriceOutput");
+            totalPriceStrong.innerHTML = "$" + totalPrice.toLocaleString();
+        }
+
+        function html_CartItems(inputDat, cartItself){
+
+            //Create cart item
+            let cartItemToAdd = document.createElement("li");
+            cartItemToAdd.setAttribute('class', "list-group-item d-flex justify-content-between 1h-condensed");
+            //Create cart data
+            let cartItemDiv = document.createElement("div");
+            cartItemDiv.setAttribute('class', "text-truncate");
+            cartItemDiv.setAttribute('style', "max-width: 150px;");
+            //Create cart header
+            let cartItemHeader = document.createElement("h6");
+            cartItemHeader.setAttribute('class', "my-0");
+            cartItemHeader.innerHTML = inputDat.name;
+            //Create cart small
+            let cartItemSmall = document.createElement("small");
+            cartItemSmall.setAttribute('class', "text-muted");
+            cartItemSmall.innerHTML = inputDat.description;
+
+            //Append the small and header to the div
+            cartItemDiv.appendChild(cartItemHeader);
+            cartItemDiv.appendChild(cartItemSmall);
+            //Create span with price
+            let cartItemPriceTag = document.createElement("span");
+            cartItemPriceTag.setAttribute('class', "text-muted");
+            cartItemPriceTag.innerHTML = "$"
+            cartItemPriceTag.innerHTML += inputDat.price.toLocaleString();
+
+            //Append the div and price tag to the list item
+            cartItemToAdd.appendChild(cartItemDiv);
+            cartItemToAdd.appendChild(cartItemPriceTag);
+
+            cartItself.appendChild(cartItemToAdd);
+        }
+
+    </script>
     <%- include partials/footer.partial.ejs %>
 </body>
 <%- include partials/scripts.partial.ejs %>

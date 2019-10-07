@@ -7,6 +7,7 @@ const index = require("../app/routes/index.route");
 const checkout = require("./routes/checkout.route");
 const user = require("./routes/user.route");
 const trees = require("../app/routes/trees.route");
+const seed = require("./utils/seedDatabase.js");
 
 const app = express();
 const port = process.env.PORT;
@@ -40,5 +41,9 @@ app.use(index);
 app.use("/checkout", checkout);
 app.use("/user", user);
 app.use("/trees", trees);
+
+//Seed the trees
+//seed.trees();
+// seed.promoCodes();
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
