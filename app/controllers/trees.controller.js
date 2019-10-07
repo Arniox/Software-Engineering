@@ -1,12 +1,31 @@
-const tree = require("../models/tree.model");
+const Tree = require("../models/tree.model");
 
 function index(request, response) {
-    const trees = tree.all();
-    response.render("trees.view.ejs", trees);
+    var treesObj;
+    Tree.find({}).then((trees) => {
+        treesObj = trees;
+
+        console.log(treesObj);
+    });
+
+    Tree.find({}).then((trees) => {
+        response.render("trees.view.ejs", { htmlTitle: "Trees", trees });
+    });
 }
 
-function add() {
+function addToCart(req, res) {
+    Tree.findById(req.body.id).then((tree) => {
+        if (!req.session.cart) {
+            req.session.cart = [];
+        }
+        
+        req.session.cart.push(tree);
 
+        res.send({
+            success: true, 
+            cart: req.session.cart
+        });
+    });
 }
 
-module.exports = { index, add };
+module.exports = { index, addToCart };

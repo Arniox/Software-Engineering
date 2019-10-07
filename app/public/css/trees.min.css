@@ -1,0 +1,10 @@
+.position-fixed {
+    right: 0;
+}
+
+#cartItemsOutput {
+    max-height: 60vh;
+    margin-bottom: 10px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}

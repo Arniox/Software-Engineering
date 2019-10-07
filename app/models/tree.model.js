@@ -7,31 +7,26 @@ var treeSchema = new Schema({
         type: String,
         required: true,
     },
-    category: {
-        type: String,
-        required: true,
-    },
-    soilDrainage: {
-        type: String,
-        required: true,
-    },
-    sunCoverage: {
-        type: String,
-        required: true,
-    },
-    maintenanceReq: {
-        type: String,
-        required: true,
-    },
     maxHeight: {
         type: String,
         required: true,
     },
-    growthRate: {
+    averageHeight: {
         type: String,
         required: true,
     },
-    price: mongoose.Decimal128,
+    description: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+    image: {
+        type: String,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model("Tree", treeSchema);

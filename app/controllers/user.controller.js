@@ -17,15 +17,18 @@ const controller = {
             email: req.body.email,
             password: req.body.password
         });
-    
+
         user.save()
             .then(() => {
                 console.log("User registration successfull.");
                 return res.redirect("/user/login");
             })
             .catch((error) => {
-                next(error);
-                return res.end();
+                if (error.name == "MongoError" && error.code == 11000) {
+                    res.redirect("/user/register");
+                } else {
+                    next(error);
+                }
             });
     },
 
