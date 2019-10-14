@@ -13,7 +13,7 @@ const Tree = require("../app/models/tree.model");
 describe("Unit tests for Tree Model", function() {
 
     it("Should add a tree to the database", function(done){
-        Tree.deleteMany({});
+        Tree.deleteMany({}).catch();
         var newTree = new Tree({name: "TestTree1", maxHeight: 1, averageHeight: 1, description: "A Tree", price: 0, image: "/"})
         newTree.save()
             .then(() => {
@@ -27,7 +27,7 @@ describe("Unit tests for Tree Model", function() {
         Tree.deleteMany({}).catch();
 
         var newTree = new Tree({name: "TestTree2", maxHeight: 1, averageHeight: 1, description: "A Tree", price: 0, image: "/"});
-        newTree.save().catch();
+        newTree.save();
 
         Tree.findOne({ name: "TestTree2"})
             .then((tree) => {
