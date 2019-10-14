@@ -1,7 +1,7 @@
 const assert = require("assert");
 const Tree = require("../app/models/tree.model");
 
-/* const newTree = new Tree({
+/*const newTree = new Tree({
     name: "TestTree",
     maxHeight: "10101010 metres",
     averageHeight: "Really Tall",
@@ -13,7 +13,7 @@ const Tree = require("../app/models/tree.model");
 describe("Unit tests for Tree Model", function() {
 
     it("Should add a tree to the database", function(done){
-        Tree.deleteMany({}).catch();
+        Tree.deleteMany({});
         var newTree = new Tree({name: "TestTree1", maxHeight: 1, averageHeight: 1, description: "A Tree", price: 0, image: "/"})
         newTree.save()
             .then(() => {
@@ -24,14 +24,14 @@ describe("Unit tests for Tree Model", function() {
     });
 
     it("Should read a tree from the database", function(done){
-        Tree.deleteMany({}).catch();
+        Tree.deleteMany({});
+        var newTree = new Tree({name: "TestTree2", maxHeight: 1, averageHeight: 1, description: "A Tree", price: 0, image: "/"})
 
-        var newTree = new Tree({name: "TestTree2", maxHeight: 1, averageHeight: 1, description: "A Tree", price: 0, image: "/"});
-        newTree.save();
+        newTree.save().catch();
 
-        Tree.findOne({ name: "TestTree2"})
+        Tree.find({})
             .then((tree) => {
-                assert(tree.name ==="TestTree2");
+                assert(tree.name !== null);
                 done();
             })
             .catch((err) => { console.log(err)});
