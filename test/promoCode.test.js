@@ -8,14 +8,16 @@ const newPromoCode = new PromoCode({
 describe("Unit tests for PromoCode Model", function() {
 
     it("Should add a promo code to the database", function(done){
-            newPromoCode.save()
-                    .then(() => {
-                        assert(!newPromoCode.isNew);
-                        done();
-                    });
+        PromoCode.deleteMany({promoCodeString: "TestString"})
+        newPromoCode.save()
+                .then(() => {
+                    assert(!newPromoCode.isNew);
+                    done();
+                });
     });
 
     it("Should read a promo code from the database", function(done){
+        PromoCode.deleteMany({promoCodeString: "TestString"})
         newPromoCode.save();
         PromoCode.findOne({ promoCodeString: "TestString"})
             .then((promo) => {
