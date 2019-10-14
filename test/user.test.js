@@ -7,14 +7,14 @@ const newUser = new User({
     email: "testUser@test.com",
     salt: "SALT",
     hash: "HASH"
-});
-
+}); 
+User.deleteMany({});
 describe("Unit tests for the User Model", function() {
 
     it("Should add a User to the database", function(done){
-        var newUser = new User({firstName:"Test", lastName:"1", email:"testUser@test.com", salt: "/", hash: "/"})
+        User.deleteMany({}).catch();
         newUser.save()
-            .then(() => {
+        .then(() => {
                 assert(!newUser.isNew);
                 done();
             })
@@ -23,20 +23,20 @@ describe("Unit tests for the User Model", function() {
     });
 
     it("Should read a User from the database", function(done){
-        var newUser = new User({firstName:"Test", lastName:"2", email:"testUser@test.com", salt: "/", hash: "/"})
-
-        User.deleteMany({lastName: "2"});
-        newUser.save();
-        User.findOne({ lastName: "2})
-            .then((user) => {
-                assert(user.lastName ==="2");
-                done();
-            })
-            .catch((err) => { console.log(err)});
+        User.deleteMany( { } ).catch();
+        newUser.save().catch();
+        User.findOne({lastName: "TestLastName"})
+        .then((user) => {
+            assert(user.lastName === "TestLastName");
+            done();
+        })
+        .catch((err) => { console.log(err)});
 
     });
 
     it("Should delete trees from the database", function(done){
+        var newUser = new User({firstName:"Test", lastName:"3", email:"testUser2@test.com", salt: "/", hash: "/"})
+        newUser.save();
         User.deleteMany({lastName: "3"})
             .then(() => User.countDocuments({firstName: "3"}))
             .then((user) => {
