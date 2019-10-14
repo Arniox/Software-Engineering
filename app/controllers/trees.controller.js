@@ -4,8 +4,6 @@ function index(request, response) {
     var treesObj;
     Tree.find({}).then((trees) => {
         treesObj = trees;
-
-        console.log(treesObj);
     });
 
     Tree.find({}).then((trees) => {
