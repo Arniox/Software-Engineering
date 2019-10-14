@@ -17,7 +17,9 @@ describe("Unit tests for Tree Model", function() {
                     .then(() => {
                         assert(!newTree.isNew);
                         done();
-                    });
+                    })
+                    .catch((err) => { console.log(err)});
+
     });
 
     it("Should read a tree from the database", function(done){
@@ -26,7 +28,8 @@ describe("Unit tests for Tree Model", function() {
             .then((tree) => {
                 assert(tree.name ==="TestTree");
                 done();
-            });
+            })
+            .catch((err) => { console.log(err)});
     });
 
     it("Should delete trees from the database", function(done){
@@ -36,5 +39,7 @@ describe("Unit tests for Tree Model", function() {
                 assert(tree == 0);
                 done();
             })
+            .catch((err) => { console.log(err)});
+
     });
 });

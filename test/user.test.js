@@ -12,23 +12,26 @@ const newUser = new User({
 describe("Unit tests for the User Model", function() {
 
     it("Should add a User to the database", function(done){
-        User.deleteMany({firstName: "TestFirstName"})
+        User.deleteMany({firstName: "TestFirstName"});
+        newUser.save()
+            .then(() => {
+                assert(!newUser.isNew);
+                done();
+            })
+            .catch((err) => {});
 
-            newUser.save()
-                    .then(() => {
-                        assert(!newUser.isNew);
-                        done();
-                    });
     });
 
     it("Should read a User from the database", function(done){
-        User.deleteMany({firstName: "TestFirstName"})
+        User.deleteMany({firstName: "TestFirstName"});
         newUser.save();
         User.findOne({ firstName: "TestFirstName"})
             .then((user) => {
                 assert(user.firstName ==="TestFirstName");
                 done();
-            });
+            })
+            .catch((err) => { console.log(err)});
+
     });
 
     it("Should delete trees from the database", function(done){
